@@ -1,16 +1,22 @@
 {
   "name": "vsix-info",
+  "main": "lib/index.js",
   "description": "Get publisher name and version of a vsix file.",
   "version": "0.0.1",
   "scripts": {
-    "lint": "eslint -f unix .",
+    "lint": "eslint -f unix ./src",
     "inspect": "jsinspect",
-    "prettier": "prettier --list-different \"./**/**.js\"",
-    "pretest": "npm run lint && npm run inspect && npm run prettier",
-    "test": "nyc mocha",
-    "test:watch": "nyc mocha --watch",
+    "prettier": "prettier --list-different \"./src/**.js\"",
+    "pretest": "npm run lint && npm run inspect",
+    "build": "webpack --mode \"development\"",
+    "build:watch": "webpack --mode \"development\" -w",
+    "test": "cross-env NODE_ENV=test nyc mocha",
+    "test:watch": "cross-env NODE_ENV=test nyc mocha --watch",
     "posttest": "nyc check-coverage --statements 90 --branches 90 --functions 90 --lines 90"
   },
+  "files": [
+    "./lib/*"
+  ],
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
   },
@@ -25,13 +31,34 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-istanbul": "^5.1.0",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
     "jsinspect": "^0.12.7",
-    "mocha": "^4.0.1",
+    "mocha": "^4.1.0",
     "nyc": "^13.1.0",
-    "prettier": "^1.14.2"
+    "prettier": "^1.14.2",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }

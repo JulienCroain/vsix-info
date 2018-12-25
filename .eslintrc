@@ -1,6 +1,10 @@
 {
   "extends": ["airbnb-base", "prettier"],
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
+    "func-names": 0
   }
 }
