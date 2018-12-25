@@ -2,7 +2,7 @@
   "name": "vsix-info",
   "main": "lib/index.js",
   "description": "Get publisher name and version of a vsix file.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "lint": "eslint -f unix ./src",
     "inspect": "jsinspect",
