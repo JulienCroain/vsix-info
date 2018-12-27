@@ -5,15 +5,11 @@ import fs from 'fs'
 import util from 'util'
 
 const parseString = util.promisify(parseStringCallback)
+const readFile = util.promisify(fs.readFile)
 
 class VsixInfo {
   static getInfo(path) {
-    return new Promise((resolve, reject) => {
-      fs.readFile(path, (err, data) => {
-        if (err) return reject(err)
-        return resolve(data)
-      })
-    })
+    return readFile(path)
       .then(data => JSZip.loadAsync(data))
       .then(zipData =>{
         if (!zipData.files['extension.vsixmanifest']) throw new Error('Invalid VSIX file.')
