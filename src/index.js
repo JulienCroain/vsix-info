@@ -17,16 +17,24 @@ class VsixInfo {
       .then(data => JSZip.loadAsync(data))
       .then(zipData =>{
         if (!zipData.files['extension.vsixmanifest']) throw new Error('Invalid VSIX file.')
-        return zipData.file('extension.vsixmanifest').async('text')
+        return Promise.all([
+          zipData.file('extension.vsixmanifest').async('text').then(parseString),
+          zipData.files['extension/README.md'] ?
+            zipData.file('extension/README.md').async('text') :
+            ''
+        ])
       })
-      .then(xml => parseString(xml))
-      .then(xmlObject => xmlObject.PackageManifest.Metadata[0])
-      .then(metadata => ({
-        displayName: metadata.DisplayName[0],
-        publisher: metadata.Identity[0].$.Publisher,
-        version: metadata.Identity[0].$.Version,
-        id: metadata.Identity[0].$.Id,
-      }))
+      .then(contents => {
+        const metadata = contents[0].PackageManifest.Metadata[0]
+        return {
+          displayName: metadata.DisplayName[0],
+          publisher: metadata.Identity[0].$.Publisher,
+          version: metadata.Identity[0].$.Version,
+          id: metadata.Identity[0].$.Id,
+          readme: contents[1],
+          path
+        }
+      })
   }
 }
 

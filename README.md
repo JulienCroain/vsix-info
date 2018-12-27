@@ -27,7 +27,9 @@ Console
     displayName: 'fake-vscode-extension',
     publisher: 'JulienCroain',
     version: '0.0.1',
-    id: 'fake-vscode-extension'
+    id: 'fake-vscode-extension',
+    readme: 'content of README.md file',
+    path: './fake-vscode-extension-0.0.1.vsix'
 }
 ```
 

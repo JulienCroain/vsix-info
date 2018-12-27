@@ -4,13 +4,19 @@ import VsixInfo from '../src'
 
 describe('vsix-info', () => {
   it('should work as expected', done => {
+    const filepath = path.join(__dirname, './fake-vscode-extension-0.0.1.vsix')
+
     const original = {
       displayName: 'fake-vscode-extension',
       publisher: 'JulienCroain',
       version: '0.0.1',
       id: 'fake-vscode-extension',
+      path: filepath,
+      readme: `# fake-vscode-extension README
+
+**Enjoy!**
+`
     }
-    const filepath = path.join(__dirname, './fake-vscode-extension-0.0.1.vsix')
     VsixInfo.getInfo(filepath).then(data => {
       const properties = Object.keys(original)
       // eslint-disable-next-line no-plusplus

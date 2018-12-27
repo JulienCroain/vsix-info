@@ -2,10 +2,10 @@
   "name": "vsix-info",
   "main": "lib/index.js",
   "description": "Get publisher name and version of a vsix file.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "lint": "eslint -f unix ./src",
-    "inspect": "jsinspect",
+    "inspect": "jsinspect ./src",
     "prettier": "prettier --list-different \"./src/**.js\"",
     "pretest": "npm run lint && npm run inspect",
     "build": "webpack --mode \"production\"",
